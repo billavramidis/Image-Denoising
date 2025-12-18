@@ -11,16 +11,16 @@ iterations = int(input("Give the number of iterations: "))
 def find_neighbours(i, j, channel, width, height):
     center = channel[i, j]
 
-    up = channel[i-1, j] if i > 0 else center
-    bottom = channel[i+1, j] if i < height - 1 else center
     left = channel[i, j-1] if j > 0 else center
     right = channel[i, j+1] if j < width - 1 else center
+    up = channel[i-1, j] if i > 0 else center
+    bottom = channel[i+1, j] if i < height - 1 else center
 
     return left, right, up, bottom
 
 def jacobi_update(original_channel, i, j, width, height):
-    left, right, bottom, up = find_neighbours(i, j, original_channel, width, height)
-    return a * original_channel[i][j] + b * (left + right + bottom + up)
+    left, right, up, bottom = find_neighbours(i, j, original_channel, width, height)
+    return a * original_channel[i][j] + b * (left + right + up + bottom)
 
 def jacobi_method(current_pixels):
         height, width, _ = current_pixels.shape

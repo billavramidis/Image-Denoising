@@ -1,0 +1,50 @@
+from PIL import Image
+import numpy as np
+import glob
+import os
+
+image_locations = glob.glob("outputs/noisy/*.png")
+a = 0.08
+b = 0.23
+
+save_dir = "outputs/clean"
+
+iterations = int(input("Give the number of iterations: "))
+
+def gauss_seidel_method(original_pixels, current_pixels):
+        height, width, channels = current_pixels.shape
+
+        for i in range(0, height):
+            for j in range(0, width):
+                for k in range(0, channels):
+                    center = current_pixels[i, j, k]
+
+                    left   = current_pixels[i, j-1, k] if j > 0 else center
+                    right  = current_pixels[i, j+1, k] if j < width - 1 else center
+                    up     = current_pixels[i-1, j, k] if i > 0 else center
+                    bottom = current_pixels[i+1, j, k] if i < height - 1 else center
+
+                    current_pixels[i, j, k] = (
+                        a * original_pixels[i, j, k] +
+                        b * (left + right + up + bottom)
+                    )
+
+        return current_pixels                
+
+for noisy_image in image_locations:
+    noisy_image_name = os.path.basename(noisy_image)
+    clean_image_name = noisy_image_name.split("_")[0]
+
+    with Image.open(noisy_image).convert("RGB") as img:
+        original_pixels = np.array(img).astype(np.float64)
+        
+        current_pixels = original_pixels.copy()
+
+        for _ in range(0, iterations):
+            current_pixels = gauss_seidel_method(original_pixels, current_pixels)
+        
+        result = np.clip(current_pixels, 0, 255).astype(np.uint8)
+        result_img = Image.fromarray(result, "RGB")
+
+        clean_image_path = f"{clean_image_name}_clean_gauss-seidel_{iterations}.png"
+        result_img.save(os.path.join(save_dir, clean_image_path))

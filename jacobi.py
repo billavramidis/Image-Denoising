@@ -32,9 +32,9 @@ def jacobi_method(original_pixels, current_pixels):
         orig_g = original_pixels[:, :, 1]
         orig_b = original_pixels[:, :, 2]
 
-        curr_r = current_pixels[:,:,0]
-        curr_g = current_pixels[:,:,1]
-        curr_b = current_pixels[:,:,2]
+        curr_r = current_pixels[:, :, 0]
+        curr_g = current_pixels[:, :, 1]
+        curr_b = current_pixels[:, :, 2]
 
         new_r = curr_r.copy()
         new_g = curr_g.copy()
@@ -42,9 +42,9 @@ def jacobi_method(original_pixels, current_pixels):
 
         for i in range(0, height):
             for j in range(0, width):
-                new_r[i][j] = jacobi_update(orig_r, curr_r, i, j, width, height)
-                new_g[i][j] = jacobi_update(orig_g, curr_g, i, j, width, height)
-                new_b[i][j] = jacobi_update(orig_b, curr_b, i, j, width, height)
+                new_r[i, j] = jacobi_update(orig_r, curr_r, i, j, width, height)
+                new_g[i, j] = jacobi_update(orig_g, curr_g, i, j, width, height)
+                new_b[i, j] = jacobi_update(orig_b, curr_b, i, j, width, height)
 
         return np.dstack((new_r, new_g, new_b))
                 

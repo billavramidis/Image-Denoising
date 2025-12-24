@@ -3,7 +3,7 @@ import numpy as np
 from pathlib import Path
 from numba import njit
 
-noisy_directory_path = Path("outputs/noisy/")
+noisy_directory_path = Path("inputs/noisy/")
 noisy_image_paths = [
     f for f in noisy_directory_path.iterdir() if f.suffix in [".jpg", ".png", ".webp"]
 ]
@@ -25,7 +25,8 @@ while True:
     if omega > 0 and omega < 2:
         break
 
-save_path = Path(f"outputs/denoised/sor/")
+save_path = Path(f"outputs/sor/")
+save_path.mkdir(parents=True, exist_ok=True)
 
 
 @njit

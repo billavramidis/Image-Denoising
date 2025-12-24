@@ -10,7 +10,7 @@ image_paths = [
 a = 0.08
 b = 0.23
 
-save_path = Path("outputs/clean/")
+save_path = Path("outputs/denoised/")
 
 iterations = int(input("Give the number of iterations: "))
 

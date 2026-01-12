@@ -29,12 +29,12 @@ def gauss_seidel_method(original_pixels, current_pixels):
             for k in range(0, channels):
                 center = current_pixels[i, j, k]
 
-                left = current_pixels[i, j - 1, k] if j - 1 > 0 else center
+                left = current_pixels[i, j - 1, k] if j - 1 >= 0 else center
                 right = current_pixels[i, j + 1, k] if j + 1 < width else center
-                up = current_pixels[i - 1, j, k] if i - 1 > 0 else center
+                up = current_pixels[i - 1, j, k] if i - 1 >= 0 else center
                 bottom = current_pixels[i + 1, j, k] if i + 1 < height else center
 
-                current_pixels[i + 1, j + 1, k] = a * original_pixels[i, j, k] + b * (
+                current_pixels[i, j, k] = a * original_pixels[i, j, k] + b * (
                     left + right + up + bottom
                 )
 

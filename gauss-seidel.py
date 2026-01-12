@@ -50,8 +50,6 @@ with Image.open(noisy_image).convert("RGB") as img:
     for _ in range(0, iterations):
         gauss_seidel_method(original_pixels, current_pixels)
 
-    current_pixels = current_pixels[1:-1, 1:-1, :]
-
     result = np.clip(current_pixels, 0, 255).astype(np.uint8)
     result_img = Image.fromarray(result, "RGB")
 

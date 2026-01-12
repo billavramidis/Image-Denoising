@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 from pathlib import Path
 
-denoised_directory_path = Path("outputs/denoised/")
+denoised_directory_path = Path("outputs/")
 denoised_image_paths = [
     file
     for method_directory in denoised_directory_path.iterdir()

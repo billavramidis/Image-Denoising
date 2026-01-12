@@ -1,7 +1,6 @@
 from PIL import Image
 import numpy as np
 from pathlib import Path
-from numba import njit
 
 noisy_directory_path = Path("inputs/noisy/")
 noisy_image_paths = [
@@ -29,7 +28,6 @@ save_path = Path(f"outputs/sor/")
 save_path.mkdir(parents=True, exist_ok=True)
 
 
-@njit
 def sor_method(original_pixels, current_pixels):
     height, width, channels = original_pixels.shape
 
